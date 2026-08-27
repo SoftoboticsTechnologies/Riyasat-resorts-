@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #F5EFE5; color: #2D2523; font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #D1A859; text-decoration: none; }
+  a:hover { color: #5D2B2A; }
+  ::selection { background: #D1A859; color: #3F2423; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F5EFE5">
+
+  <header style="position:fixed;left:0;right:0;top:0;z-index:70;background:rgba(63,36,35,.94);backdrop-filter:blur(6px);border-bottom:1px solid rgba(209,168,89,.32)">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(18px,3vw,40px);height:{{ barH }};display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a href="#home" style="display:flex;align-items:center;gap:12px">
+        <img src="logo-circular.png" alt="Riyasat e Resort" style="width:40px;height:40px;border-radius:50%;display:block" />
+        <span style="font-family:Marcellus,serif;font-size:14px;letter-spacing:.3em;color:#F5EFE5;white-space:nowrap;flex:0 0 auto;display:{{ wordmarkDisplay }}">RIYASAT E RESORT</span>
+      </a>
+      <nav style="display:{{ navRowDisplay }};align-items:center;gap:clamp(18px,2.4vw,36px)">
+        <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
+          <a href="{{ l.href }}" style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(245,239,229,.78)">{{ l.label }}</a>
+        </sc-for>
+      </nav>
+      <a href="{{ waHref }}" style="display:{{ navRowDisplay }};align-items:center;gap:9px;border:1px solid rgba(209,168,89,.55);color:#D1A859;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:11px 18px">
+        <span style="width:5px;height:5px;border-radius:50%;background:#D1A859"></span>{{ phone }}
+      </a>
+      <button onClick="{{ toggleNav }}" aria-label="Menu" style="display:{{ burgerDisplay }};width:40px;height:34px;background:transparent;border:1px solid rgba(209,168,89,.5);flex-direction:column;justify-content:center;gap:4px;align-items:center;cursor:pointer">
+        <span style="width:16px;height:1px;background:#D1A859"></span>
+        <span style="width:16px;height:1px;background:#D1A859"></span>
+      </button>
+    </div>
+  </header>
+
+  <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;background:#3F2423;padding:78px 26px 26px;animation:riseIn .26s ease both">
+      <button onClick="{{ closeNav }}" aria-label="Close" style="position:absolute;top:18px;right:18px;width:40px;height:34px;background:transparent;border:1px solid rgba(209,168,89,.5);color:#D1A859;font-size:18px;line-height:1;cursor:pointer">×</button>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
+          <a href="{{ l.href }}" onClick="{{ closeNav }}" style="font-family:Marcellus,serif;font-size:26px;letter-spacing:.06em;color:#F5EFE5;padding:14px 0;border-bottom:1px solid rgba(209,168,89,.2)">{{ l.label }}</a>
+        </sc-for>
+      </div>
+      <a href="{{ waHref }}" style="display:block;margin-top:28px;text-align:center;background:#D1A859;color:#3F2423;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:11.5px;padding:16px">WhatsApp {{ phone }}</a>
+    </div>
+  </sc-if>
+
+  <a href="{{ waHref }}" style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:65;display:{{ waTabDisplay }};align-items:center;gap:10px;writing-mode:vertical-rl;background:#3F2423;border:1px solid rgba(209,168,89,.7);border-right:none;color:#D1A859;padding:22px 11px;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase">
+    <span style="width:5px;height:5px;border-radius:50%;background:#D1A859"></span>WhatsApp · {{ phone }}
+  </a>
+
+  <a href="{{ waHref }}" style="position:fixed;left:0;right:0;bottom:0;z-index:65;display:{{ waBarDisplay }};align-items:center;justify-content:center;gap:10px;background:#D1A859;color:#3F2423;font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;padding:16px">
+    <span style="width:6px;height:6px;border-radius:50%;background:#3F2423"></span>WhatsApp {{ phone }}
+  </a>
+
+  <main style="padding-bottom:{{ mainPadBottom }}">
+
+    <section id="home" data-screen-label="Hero" style="position:relative;min-height:{{ heroH }};display:flex;align-items:center;justify-content:center;overflow:hidden;background:#3F2423">
+      <sc-for list="{{ heroPhotos }}" as="p" hint-placeholder-count="3">
+        <div style="position:absolute;inset:0;opacity:{{ p.op }};transition:opacity 1.6s ease;background:repeating-linear-gradient(135deg,#4A2827 0 11px,#3F2423 11px 22px)"></div>
+      </sc-for>
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(63,36,35,.35) 0%,rgba(63,36,35,.82) 100%)"></div>
+      <div style="position:relative;text-align:center;padding:clamp(96px,12vh,150px) clamp(22px,6vw,60px) clamp(60px,8vh,96px);max-width:960px;display:flex;flex-direction:column;align-items:center;gap:clamp(20px,3vh,30px)">
+        <img src="logo-circular.png" alt="Riyasat e Resort" style="width:clamp(116px,13vw,164px);height:clamp(116px,13vw,164px);border-radius:50%;display:block" />
+        <span style="font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#D1A859">3 Star Heritage Resort</span>
+        <h1 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(40px,7.4vw,104px);line-height:1.02;letter-spacing:.08em;color:#F5EFE5;text-wrap:balance">RIYASAT E RESORT</h1>
+        <div style="display:flex;align-items:center;gap:16px">
+          <span style="width:clamp(30px,7vw,72px);height:1px;background:rgba(209,168,89,.6)"></span>
+          <span style="width:5px;height:5px;background:#D1A859;transform:rotate(45deg)"></span>
+          <span style="width:clamp(30px,7vw,72px);height:1px;background:rgba(209,168,89,.6)"></span>
+        </div>
+        <p style="margin:0;max-width:52ch;font-size:clamp(14.5px,1.25vw,17px);line-height:1.9;color:rgba(245,239,229,.82);font-weight:300">Stays, weddings and private celebrations in Indirapuram, Ghaziabad. Two properties, one standard of hospitality.</p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:6px">
+          <a href="#about" style="background:#D1A859;color:#3F2423;font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:17px 30px">Explore the Resort</a>
+          <a href="{{ waHref }}" style="border:1px solid rgba(209,168,89,.55);color:#D1A859;font-weight:500;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:17px 30px">Plan Your Event</a>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:center;gap:9px;z-index:2">
+        <sc-for list="{{ heroDots }}" as="d" hint-placeholder-count="3">
+          <span onClick="{{ d.go }}" style="width:30px;height:1px;background:{{ d.bg }};cursor:pointer"></span>
+        </sc-for>
+      </div>
+      <span style="position:absolute;bottom:14px;right:20px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(209,168,89,.65)">{{ heroLabel }}</span>
+    </section>
+
+    <section id="about" data-screen-label="Story" style="padding:clamp(76px,11vw,168px) clamp(22px,6vw,80px);background:#F5EFE5">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:clamp(48px,7vw,96px)">
+          <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#786B61">Our Story</span>
+          <h2 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(30px,4.4vw,62px);line-height:1.14;letter-spacing:.02em;color:#5D2B2A;max-width:22ch;text-wrap:balance">Where Heritage Meets Hospitality</h2>
+          <span style="width:1px;height:52px;background:linear-gradient(#D1A859,rgba(209,168,89,0))"></span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:{{ storyCols }};gap:clamp(30px,5vw,84px);align-items:center">
+          <div>
+            <p style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(21px,2.1vw,29px);line-height:1.6;color:#2D2523;max-width:26ch">A three star resort built in a heritage look, with well appointed rooms, a wide garden and a swimming pool.</p>
+            <p style="margin:26px 0 0;font-size:15.5px;line-height:2;color:#786B61;font-weight:300;max-width:42ch">Six years in hospitality and events have taught us one thing: experimenting with space and atmosphere gives better results. Every celebration here is shaped around what you envision.</p>
+          </div>
+          <div style="position:relative;min-height:clamp(320px,38vw,480px);border:1px solid rgba(209,168,89,.5);border-radius:180px 180px 0 0;overflow:hidden">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#EDE3D2 0 10px,#F5EFE5 10px 20px);display:flex;align-items:center;justify-content:center">
+              <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#786B61;background:#F5EFE5;border:1px solid rgba(209,168,89,.5);padding:7px 12px">Heritage facade</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:{{ storyCols }};gap:clamp(30px,5vw,84px);align-items:center;margin-top:clamp(54px,8vw,120px)">
+          <div style="position:relative;min-height:clamp(320px,38vw,480px);border:1px solid rgba(209,168,89,.5);border-radius:180px 180px 0 0;overflow:hidden;order:{{ photoOrder }}">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#EDE3D2 0 10px,#F5EFE5 10px 20px);display:flex;align-items:center;justify-content:center">
+              <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#786B61;background:#F5EFE5;border:1px solid rgba(209,168,89,.5);padding:7px 12px">Courtyard, evening</span>
+            </div>
+          </div>
+          <div>
+            <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#786B61">By the Numbers</span>
+            <p style="margin:20px 0 0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(24px,3vw,40px);line-height:1.45;color:#2D2523;max-width:26ch">
+              <span style="color:#D1A859">6+ years</span> in hospitality and events, <span style="color:#D1A859">2 properties</span> for 150 and 500 guests, rooms of <span style="color:#D1A859">262 sq ft</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="properties" data-screen-label="Two properties" style="background:#3F2423;border-top:1px solid rgba(209,168,89,.28);border-bottom:1px solid rgba(209,168,89,.28)">
+      <div style="text-align:center;padding:clamp(64px,8vw,120px) 24px clamp(10px,3vw,34px);display:flex;flex-direction:column;align-items:center;gap:16px">
+        <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#D1A859">Two Properties</span>
+        <h2 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(30px,4.4vw,58px);line-height:1.14;color:#F5EFE5;max-width:20ch;text-wrap:balance">One Address, Two Scales of Celebration</h2>
+      </div>
+      <div style="display:{{ diagonalDisplay }};position:relative;height:clamp(460px,54vw,660px);overflow:hidden">
+        <div style="position:absolute;inset:0;clip-path:polygon(0 0,58% 0,42% 100%,0 100%);background:repeating-linear-gradient(135deg,#4A2827 0 11px,#3F2423 11px 22px);display:flex;flex-direction:column;justify-content:center;gap:20px;padding:0 13% 0 clamp(44px,8vw,120px)">
+          <span style="font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:#D1A859">Property One</span>
+          <h3 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(28px,3.4vw,46px);line-height:1.18;color:#F5EFE5;max-width:14ch">Resort for 150 Members</h3>
+          <p style="margin:0;font-size:15px;line-height:1.9;color:rgba(245,239,229,.72);font-weight:300;max-width:23ch">Private celebrations, intimate gatherings and comfortable stays.</p>
+          <a href="{{ waHref }}" style="align-self:flex-start;border:1px solid rgba(209,168,89,.55);color:#D1A859;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:15px 24px">Enquiry on WhatsApp</a>
+        </div>
+        <div style="position:absolute;inset:0;clip-path:polygon(58.4% 0,100% 0,100% 100%,42.4% 100%);background:repeating-linear-gradient(135deg,#5D2B2A 0 11px,#522726 11px 22px);display:flex;flex-direction:column;justify-content:center;align-items:flex-end;text-align:right;gap:20px;padding:0 clamp(44px,8vw,120px) 0 13%">
+          <span style="font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:#D1A859">Property Two</span>
+          <h3 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(28px,3.4vw,46px);line-height:1.18;color:#F5EFE5;max-width:14ch">Resort for 500 Members</h3>
+          <p style="margin:0;font-size:15px;line-height:1.9;color:rgba(245,239,229,.72);font-weight:300;max-width:23ch">Large scale events and celebrations with room to move.</p>
+          <a href="{{ waHref }}" style="border:1px solid rgba(209,168,89,.55);color:#D1A859;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:15px 24px">Enquiry on WhatsApp</a>
+        </div>
+      </div>
+      <div style="display:{{ stackedDisplay }};flex-direction:column;margin-top:24px">
+        <div style="padding:52px 24px;background:repeating-linear-gradient(135deg,#4A2827 0 11px,#3F2423 11px 22px);display:flex;flex-direction:column;gap:15px;border-top:1px solid rgba(209,168,89,.28)">
+          <span style="font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:#D1A859">Property One</span>
+          <h3 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:30px;line-height:1.18;color:#F5EFE5">Resort for 150 Members</h3>
+          <p style="margin:0;font-size:15px;line-height:1.9;color:rgba(245,239,229,.72);font-weight:300">Private celebrations, intimate gatherings and comfortable stays.</p>
+          <a href="{{ waHref }}" style="align-self:flex-start;border:1px solid rgba(209,168,89,.55);color:#D1A859;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:14px 22px">Enquiry</a>
+        </div>
+        <div style="padding:52px 24px;background:repeating-linear-gradient(135deg,#5D2B2A 0 11px,#522726 11px 22px);display:flex;flex-direction:column;gap:15px;border-top:1px solid rgba(209,168,89,.28)">
+          <span style="font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:#D1A859">Property Two</span>
+          <h3 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:30px;line-height:1.18;color:#F5EFE5">Resort for 500 Members</h3>
+          <p style="margin:0;font-size:15px;line-height:1.9;color:rgba(245,239,229,.72);font-weight:300">Large scale events and celebrations with room to move.</p>
+          <a href="{{ waHref }}" style="align-self:flex-start;border:1px solid rgba(209,168,89,.55);color:#D1A859;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding:14px 22px">Enquiry</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" data-screen-label="Events" style="padding:clamp(76px,11vw,160px) 0;background:#F5EFE5">
+      <div style="max-width:1180px;margin:0 auto clamp(40px,5vw,64px);padding:0 clamp(22px,6vw,80px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px">
+        <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#786B61">Celebrations</span>
+        <h2 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(30px,4.4vw,58px);line-height:1.14;color:#5D2B2A">Your Occasion, Our Canvas</h2>
+        <p style="margin:0;max-width:46ch;font-size:15px;line-height:1.9;color:#786B61;font-weight:300">Haldi to satsang, the property is dressed differently for each one.</p>
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <button onClick="{{ scrollEventsLeft }}" aria-label="Previous" style="width:46px;height:46px;border:1px solid rgba(209,168,89,.7);background:transparent;color:#5D2B2A;font-size:15px;cursor:pointer">←</button>
+          <button onClick="{{ scrollEventsRight }}" aria-label="Next" style="width:46px;height:46px;border:1px solid rgba(209,168,89,.7);background:transparent;color:#5D2B2A;font-size:15px;cursor:pointer">→</button>
+        </div>
+      </div>
+      <div ref="{{ eventsRef }}" onMouseEnter="{{ pauseEvents }}" onMouseLeave="{{ resumeEvents }}" onTouchStart="{{ pauseEvents }}" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:0 clamp(22px,6vw,80px) 16px">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+          <div style="flex:0 0 auto;width:clamp(252px,29vw,376px);scroll-snap-align:center;text-align:center">
+            <div style="position:relative;height:clamp(320px,34vw,460px);border:1px solid rgba(209,168,89,.5);border-radius:150px 150px 0 0;overflow:hidden">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#EDE3D2 0 10px,#F5EFE5 10px 20px);display:flex;align-items:center;justify-content:center">
+                <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#786B61;background:#F5EFE5;border:1px solid rgba(209,168,89,.5);padding:7px 12px">{{ e.slot }}</span>
+              </div>
+            </div>
+            <h4 style="margin:20px 0 8px;font-family:Marcellus,serif;font-weight:400;font-size:23px;letter-spacing:.05em;color:#5D2B2A">{{ e.title }}</h4>
+            <p style="margin:0 auto;max-width:28ch;font-size:14px;line-height:1.8;color:#786B61;font-weight:300">{{ e.note }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="rooms" data-screen-label="Rooms" style="background:#F5EFE5;border-top:1px solid rgba(209,168,89,.32)">
+      <div style="display:grid;grid-template-columns:{{ roomsCols }}">
+        <div style="position:relative">
+          <div style="position:{{ roomStickyPos }};top:0;height:{{ roomStickyH }};background:repeating-linear-gradient(135deg,#4A2827 0 11px,#3F2423 11px 22px);display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(32px,5vw,80px)">
+            <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#D1A859">The Rooms</span>
+            <h2 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(28px,3.6vw,50px);line-height:1.18;color:#F5EFE5;max-width:16ch">Kept Quietly Well</h2>
+            <p style="margin:0;font-size:15px;line-height:1.95;color:rgba(245,239,229,.74);font-weight:300;max-width:34ch">Best suited for guests attending events, families on a short stay, or anyone looking for a quiet retreat away from the city.</p>
+            <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#D1A859;border:1px solid rgba(209,168,89,.45);padding:7px 12px;align-self:flex-start;margin-top:8px">Room interior, 262 sq ft</span>
+          </div>
+        </div>
+        <div style="padding:clamp(44px,7vw,110px) clamp(22px,5vw,84px)">
+          <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#786B61">Amenities</span>
+          <div style="margin-top:26px">
+            <sc-for list="{{ amenities }}" as="a" hint-placeholder-count="7">
+              <div ref="{{ a.ref }}" style="padding:clamp(28px,3.4vw,48px) 0;border-bottom:1px solid rgba(209,168,89,.32);opacity:{{ a.op }};transition:opacity .55s ease;display:flex;gap:22px;align-items:baseline">
+                <span style="font-family:ui-monospace,monospace;font-size:10.5px;color:#D1A859;letter-spacing:.12em">{{ a.num }}</span>
+                <div>
+                  <h4 style="margin:0 0 10px;font-family:Marcellus,serif;font-weight:400;font-size:clamp(22px,2.4vw,32px);letter-spacing:.03em;color:#5D2B2A">{{ a.title }}</h4>
+                  <p style="margin:0;font-size:14.5px;line-height:1.85;color:#786B61;font-weight:300;max-width:36ch">{{ a.note }}</p>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="Garden and pool" style="background:#3F2423">
+      <div style="position:relative;height:clamp(420px,62vh,660px);overflow:hidden;display:flex;align-items:center;justify-content:center">
+        <div style="position:absolute;left:0;right:0;top:-14%;bottom:-14%;transform:translateY({{ parY }});background:repeating-linear-gradient(135deg,#4A2827 0 11px,#3F2423 11px 22px)"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(rgba(63,36,35,.5),rgba(63,36,35,.7))"></div>
+        <div style="position:relative;text-align:center;padding:0 24px;display:flex;flex-direction:column;align-items:center;gap:22px">
+          <span style="width:5px;height:5px;background:#D1A859;transform:rotate(45deg)"></span>
+          <p style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(24px,3.6vw,48px);line-height:1.4;letter-spacing:.03em;color:#F5EFE5;max-width:24ch">A garden, a pool, and the quiet of the canal beyond.</p>
+          <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#D1A859;border:1px solid rgba(209,168,89,.45);padding:7px 12px">Wide garden shot, golden hour</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ pairCols }};gap:1px;background:rgba(209,168,89,.32)">
+        <div style="position:relative;height:clamp(280px,32vw,420px);background:repeating-linear-gradient(135deg,#EDE3D2 0 10px,#F5EFE5 10px 20px);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;padding:32px;text-align:center">
+          <span style="font-family:Marcellus,serif;font-size:27px;letter-spacing:.05em;color:#5D2B2A">The Garden</span>
+          <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#786B61">Garden photo</span>
+        </div>
+        <div style="position:relative;height:clamp(280px,32vw,420px);background:repeating-linear-gradient(135deg,#EDE3D2 0 10px,#F5EFE5 10px 20px);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;padding:32px;text-align:center">
+          <span style="font-family:Marcellus,serif;font-size:27px;letter-spacing:.05em;color:#5D2B2A">The Pool</span>
+          <span style="font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#786B61">Poolside photo</span>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="Philosophy" style="background:#5D2B2A;padding:clamp(90px,14vw,200px) clamp(24px,8vw,140px);text-align:center">
+      <div style="max-width:1000px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:34px">
+        <span style="width:40px;height:1px;background:rgba(209,168,89,.7)"></span>
+        <blockquote style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(30px,5.4vw,76px);line-height:1.2;letter-spacing:.02em;color:#F5EFE5;text-wrap:balance">We Believe Every Celebration Should Feel Different</blockquote>
+        <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#D1A859">Riyasat e Resort · Indirapuram</span>
+      </div>
+    </section>
+
+    <section id="gallery" data-screen-label="Gallery" style="padding:clamp(76px,11vw,160px) clamp(22px,6vw,80px);background:#F5EFE5">
+      <div style="max-width:1180px;margin:0 auto">
+        <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:clamp(40px,5vw,68px)">
+          <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#786B61">Gallery</span>
+          <h2 style="margin:0;font-family:Marcellus,serif;font-weight:400;font-size:clamp(30px,4.4vw,58px);line-height:1.14;color:#5D2B2A">The Property, in Frames</h2>
+        </div>
+        <div style="column-count:{{ galleryCols }};column-gap:18px">
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="9">
+            <div onClick="{{ g.open }}" style="break-inside:avoid;margin-bottom:18px;cursor:pointer;position:relative;height:{{ g.h }};border:1px solid rgba(209,168,89,.45);background:repeating-linear-gradient(135deg,#EDE3D2 0 10px,#F5EFE5 10px 20px);display:flex;align-items:flex-end;padding:16px">
+              <span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#786B61;background:#F5EFE5;border:1px solid rgba(209,168,89,.45);padding:6px 10px">{{ g.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:90;background:rgba(45,37,35,.95);display:flex;align-items:center;justify-content:center;padding:clamp(20px,5vw,72px);animation:riseIn .28s ease both">
+        <button onClick="{{ closeLightbox }}" aria-label="Close" style="position:absolute;top:18px;right:18px;width:44px;height:38px;background:transparent;border:1px solid rgba(209,168,89,.55);color:#D1A859;font-size:19px;line-height:1;cursor:pointer">×</button>
+        <button onClick="{{ prevLightbox }}" aria-label="Previous" style="position:absolute;left:14px;width:44px;height:44px;background:transparent;border:1px solid rgba(209,168,89,.55);color:#D1A859;cursor:pointer">←</button>
+        <button onClick="{{ nextLightbox }}" aria-label="Next" style="position:absolute;right:14px;width:44px;height:44px;background:transparent;border:1px solid rgba(209,168,89,.55);color:#D1A859;cursor:pointer">→</button>
+        <div style="width:min(100%,980px);height:min(78vh,660px);border:1px solid rgba(209,168,89,.5);background:repeating-linear-gradient(135deg,#4A2827 0 11px,#3F2423 11px 22px);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:ui-monospace,monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#D1A859;border:1px solid rgba(209,168,89,.45);padding:9px 14px">{{ lightboxLabel }}</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <section id="contact" data-screen-label="Contact" style="background:#F5EFE5;border-top:1px solid rgba(209,168,89,.32)">
+      <div style="display:grid;grid-template-columns:{{ contactCols }}">
+        <div style="padding:clamp(56px,9vw,130px) clamp(22px,6vw,90px);order:{{ contactTextOrder }}">
+          <span style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:#786B61">Visit or Enquiry</span>
+          <h2 style="margin:16px 0 30px;font-family:Marcellus,serif;font-weight:400;font-size:clamp(30px,4.2vw,54px);line-height:1.14;color:#5D2B2A">Come See the Place</h2>
+          <p style="margin:0 0 34px;font-size:16px;line-height:2;color:#2D2523;font-weight:300;max-width:36ch">Shaheed Captain Manoj Pandey Marg, Near Hindon Canal, Radha Swami Beas, Kanawani, Indirapuram, Ghaziabad, 201014</p>
+          <div style="display:flex;flex-direction:column;gap:16px;padding:24px 0;border-top:1px solid rgba(209,168,89,.4);border-bottom:1px solid rgba(209,168,89,.4);margin-bottom:34px">
+            <a href="{{ telHref }}" style="display:flex;justify-content:space-between;gap:16px;color:#2D2523;font-size:15px"><span style="color:#786B61;font-size:10px;letter-spacing:.24em;text-transform:uppercase">Call</span>{{ phone }}</a>
+            <a href="{{ waHref }}" style="display:flex;justify-content:space-between;gap:16px;color:#2D2523;font-size:15px"><span style="color:#786B61;font-size:10px;letter-spacing:.24em;text-transform:uppercase">WhatsApp</span>{{ phone }}</a>
+          </div>
+          <a href="{{ mapsHref }}" target="_blank" rel="noreferrer" style="display:inline-block;background:#5D2B2A;color:#F5EFE5;font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:17px 30px">Get Directions</a>
+        </div>
+        <div style="min-height:clamp(320px,40vw,100%);border-left:1px solid rgba(209,168,89,.32)">
+          <iframe title="Map to Riyasat e Resort" src="{{ mapEmbed }}" style="width:100%;height:100%;min-height:340px;border:0;display:block" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer style="background:#3F2423;padding:clamp(60px,8vw,110px) clamp(22px,6vw,80px) clamp(36px,4vw,56px);text-align:center">
+      <img src="logo-circular.png" alt="Riyasat e Resort" style="width:186px;height:186px;border-radius:50%;display:block;margin:0 auto 34px" />
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-bottom:28px">
+        <sc-for list="{{ navLinks }}" as="l" hint-placeholder-count="7">
+          <a href="{{ l.href }}" style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(245,239,229,.72)">{{ l.label }}</a>
+        </sc-for>
+        <a href="{{ waHref }}" style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#D1A859">WhatsApp</a>
+        <a href="{{ telHref }}" style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#D1A859">Call</a>
+      </div>
+      <p style="margin:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(120,107,97,.95)">3 Star Heritage Resort · Indirapuram, Ghaziabad · {{ phone }}</p>
+    </footer>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;8700616225&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;heroInterval&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:2,&quot;max&quot;:12,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showWhatsappTab&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = {
+    hero: 0,
+    isMobile: typeof window !== 'undefined' && window.innerWidth < 900,
+    isNarrow: typeof window !== 'undefined' && window.innerWidth < 1180,
+    navOpen: false,
+    lightbox: null,
+    amenity: 0,
+    parY: 0,
+  };
+
+  heroLabels = ['Heritage facade, dusk', 'Mandap in the garden', 'Poolside, evening lights'];
+
+  navLinks = [
+    { href: '#home', label: 'Home' },
+    { href: '#about', label: 'About' },
+    { href: '#rooms', label: 'Rooms' },
+    { href: '#events', label: 'Events' },
+    { href: '#properties', label: 'Properties' },
+    { href: '#gallery', label: 'Gallery' },
+    { href: '#contact', label: 'Contact' },
+  ];
+
+  eventsList = [
+    { title: 'Haldi', note: 'Morning light, marigold, open lawn.', slot: 'Haldi ceremony' },
+    { title: 'Mehndi', note: 'Shaded seating and low canopy décor.', slot: 'Mehndi setup' },
+    { title: 'Get Together', note: 'Small gatherings for family and friends.', slot: 'Family gathering' },
+    { title: 'Poolside Party', note: 'Pool deck laid out for evening service.', slot: 'Pool party' },
+    { title: 'Spiritual Events', note: 'Quiet, screened space for satsang and puja.', slot: 'Spiritual event' },
+    { title: 'Private Events', note: 'Whole property held for one occasion.', slot: 'Private event' },
+  ];
+
+  amenityList = [
+    { title: 'Queen Size Bed', note: 'Made up fresh, with room to spare at 262 sq ft.' },
+    { title: 'Air Conditioning', note: 'Individually controlled in every room.' },
+    { title: 'Television', note: 'Wall mounted, in view of the bed.' },
+    { title: 'Refrigerator', note: 'In room, for anything you want kept cold.' },
+    { title: 'Hair Dryer', note: 'Provided in the bathroom.' },
+    { title: 'Almirah', note: 'Full wardrobe for longer stays.' },
+    { title: 'Complimentary Water', note: 'Bottled water replaced daily.' },
+  ];
+
+  galleryList = [
+    { label: 'Exterior, day', h: '300px' },
+    { label: 'Room interior', h: '220px' },
+    { label: 'Garden lawn', h: '360px' },
+    { label: 'Swimming pool', h: '240px' },
+    { label: 'Event décor', h: '320px' },
+    { label: 'Night view', h: '280px' },
+    { label: 'Reception', h: '200px' },
+    { label: 'Mandap detail', h: '340px' },
+    { label: 'Poolside lounge', h: '250px' },
+  ];
+
+  amRefs = [];
+
+  componentDidMount() {
+    this.startTimer();
+    this.onResize = () => this.setState({ isMobile: window.innerWidth < 900, isNarrow: window.innerWidth < 1180 });
+    this.onScroll = () => {
+      const mid = window.innerHeight * 0.5;
+      let best = 0, bestD = Infinity;
+      this.amRefs.forEach((el, i) => {
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      const parY = Math.round((window.scrollY % 2000) * 0.04) % 90;
+      if (best !== this.state.amenity || parY !== this.state.parY) this.setState({ amenity: best, parY });
+    };
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onKey = (e) => {
+      if (this.state.lightbox === null) return;
+      if (e.key === 'Escape') this.setState({ lightbox: null });
+      if (e.key === 'ArrowRight') this.step(1);
+      if (e.key === 'ArrowLeft') this.step(-1);
+    };
+    window.addEventListener('keydown', this.onKey);
+    this.evTimer = setInterval(() => {
+      const el = this.evEl;
+      if (!el || this.evPaused) return;
+      const card = el.firstElementChild;
+      const step = card ? card.getBoundingClientRect().width + 20 : el.clientWidth * 0.7;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      el.scrollTo({ left: atEnd ? 0 : el.scrollLeft + step, behavior: 'smooth' });
+    }, 2000);
+  }
+
+  componentDidUpdate(prev) {
+    if (prev.heroInterval !== this.props.heroInterval) this.startTimer();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearInterval(this.evTimer);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('keydown', this.onKey);
+  }
+
+  startTimer() {
+    clearInterval(this.timer);
+    const s = (this.props.heroInterval ?? 6) * 1000;
+    this.timer = setInterval(() => this.setState(st => ({ hero: (st.hero + 1) % 3 })), s);
+  }
+
+  step(d) {
+    this.setState(s => ({ lightbox: (s.lightbox + d + this.galleryList.length) % this.galleryList.length }));
+  }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    const phone = this.props.phone ?? '8700616225';
+    const digits = String(phone).replace(/\D/g, '');
+    const address = 'Shaheed Captain Manoj Pandey Marg, Near Hindon Canal, Kanawani, Indirapuram, Ghaziabad 201014';
+    const showTab = this.props.showWhatsappTab !== false;
+
+    return {
+      phone,
+      waHref: 'https://wa.me/91' + digits,
+      telHref: 'tel:+91' + digits,
+      mapsHref: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address),
+      mapEmbed: 'https://www.google.com/maps?q=' + encodeURIComponent(address) + '&output=embed',
+
+      barH: m ? '62px' : '76px',
+      wordmarkDisplay: !m && this.state.isNarrow ? 'none' : 'block',
+      navRowDisplay: m ? 'none' : 'flex',
+      burgerDisplay: m ? 'flex' : 'none',
+      waTabDisplay: !m && showTab ? 'flex' : 'none',
+      waBarDisplay: m && showTab ? 'flex' : 'none',
+      mainPadBottom: m && showTab ? '54px' : '0px',
+
+      heroH: m ? '92vh' : '100vh',
+      heroPhotos: this.heroLabels.map((label, i) => ({ label, op: this.state.hero === i ? 1 : 0 })),
+      heroLabel: this.heroLabels[this.state.hero],
+      heroDots: this.heroLabels.map((_, i) => ({
+        bg: this.state.hero === i ? '#D1A859' : 'rgba(245,239,229,.3)',
+        go: () => this.setState({ hero: i }),
+      })),
+
+      storyCols: m ? '1fr' : '1fr 1fr',
+      photoOrder: m ? 2 : 0,
+      diagonalDisplay: m ? 'none' : 'block',
+      stackedDisplay: m ? 'flex' : 'none',
+      pairCols: m ? '1fr' : '1fr 1fr',
+      galleryCols: m ? 1 : 3,
+      contactCols: m ? '1fr' : '1fr 1fr',
+      contactTextOrder: m ? 2 : 0,
+
+      roomsCols: m ? '1fr' : '1fr 1fr',
+      roomStickyPos: m ? 'relative' : 'sticky',
+      roomStickyH: m ? '58vh' : '100vh',
+
+      events: this.eventsList,
+      eventsRef: (el) => { this.evEl = el; },
+      pauseEvents: () => { this.evPaused = true; },
+      resumeEvents: () => { this.evPaused = false; },
+      scrollEventsLeft: () => this.evEl && this.evEl.scrollBy({ left: -this.evEl.clientWidth * 0.7, behavior: 'smooth' }),
+      scrollEventsRight: () => this.evEl && this.evEl.scrollBy({ left: this.evEl.clientWidth * 0.7, behavior: 'smooth' }),
+
+      amenities: this.amenityList.map((a, i) => ({
+        ...a,
+        num: '0' + (i + 1),
+        op: m ? 1 : (this.state.amenity === i ? 1 : 0.32),
+        ref: (el) => { this.amRefs[i] = el; },
+      })),
+
+      gallery: this.galleryList.map((g, i) => ({ ...g, open: () => this.setState({ lightbox: i }) })),
+      lightboxOpen: this.state.lightbox !== null,
+      lightboxLabel: this.state.lightbox !== null ? this.galleryList[this.state.lightbox].label : '',
+      closeLightbox: () => this.setState({ lightbox: null }),
+      nextLightbox: (e) => { e.stopPropagation(); this.step(1); },
+      prevLightbox: (e) => { e.stopPropagation(); this.step(-1); },
+
+      parY: this.state.parY + 'px',
+      navLinks: this.navLinks,
+      navOpen: this.state.navOpen,
+      toggleNav: () => this.setState(s => ({ navOpen: !s.navOpen })),
+      closeNav: () => this.setState({ navOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

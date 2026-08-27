@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</helmet>
+
+<div style="background:#F5EFE5;overflow-x:hidden;max-width:100vw">
+  <dc-import name="SiteHeader" active="events" hint-size="100%,80px"></dc-import>
+
+  <main style="padding-top:{{ topPad }};padding-bottom:{{ botPad }}">
+
+    <section data-screen-label="Page header" style="background:#3F2423;border-bottom:1px solid rgba(209,168,89,.3);padding:clamp(56px,8vw,120px) clamp(20px,5vw,72px)">
+      <div style="max-width:1240px;margin:0 auto">
+        <span style="font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#D1A859">Events</span>
+        <h1 style="margin:18px 0 20px;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(34px,5.4vw,74px);line-height:1.08;color:#F5EFE5;max-width:20ch">Your occasion, our canvas</h1>
+        <p style="margin:0;font-size:clamp(16px,1.25vw,19px);line-height:1.8;color:rgba(245,239,229,.86);max-width:54ch">Haldi to satsang, the property is dressed differently for each occasion. Tell us what you envision and we will shape the space around it.</p>
+      </div>
+    </section>
+
+    <section data-screen-label="Filmstrip" style="padding:clamp(52px,7vw,100px) 0 clamp(30px,4vw,50px)">
+      <div style="max-width:1240px;margin:0 auto clamp(26px,3vw,40px);padding:0 clamp(20px,5vw,72px)">
+        <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(26px,3.4vw,44px);line-height:1.16;color:#5D2B2A">Occasions we host</h2>
+      </div>
+      <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:grid;grid-template-columns:{{ eventCols }};gap:clamp(20px,3vw,30px)">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;height:100%;background:#FFFFFF;border:1px solid rgba(209,168,89,.3);transition:box-shadow .3s ease,border-color .3s ease" style-hover="box-shadow:0 18px 40px rgba(93,43,42,.14);border-color:rgba(209,168,89,.6)">
+            <div style="position:relative;height:clamp(300px,32vw,420px);overflow:hidden">
+              <div style="position:absolute;inset:0;background-image:url({{ e.url }});background-size:cover;background-position:center;background-color:#EDE3D2;transition:transform .5s ease" style-hover="transform:scale(1.06)">
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;flex:1 1 auto;padding:20px clamp(16px,2vw,22px) clamp(20px,2.4vw,26px)">
+              <h3 style="margin:0 0 8px;font-family:'Playfair Display',serif;font-weight:500;font-size:24px;color:#5D2B2A">{{ e.title }}</h3>
+              <p style="margin:0 0 20px;font-size:15px;line-height:1.75;color:#786B61">{{ e.note }}</p>
+              <a href="{{ e.wa }}" style="margin-top:auto;align-self:flex-start;border:1px solid rgba(209,168,89,.6);color:#5D2B2A;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:13px 22px;transition:background-color .25s ease,color .25s ease,border-color .25s ease" style-hover="background:#5D2B2A;color:#F5EFE5;border-color:#5D2B2A">Enquiry →</a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section data-screen-label="How it works" style="padding:clamp(56px,8vw,120px) clamp(20px,5vw,72px);border-top:1px solid rgba(209,168,89,.4)">
+      <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:{{ splitCols }};gap:clamp(30px,5vw,72px);align-items:start">
+        <div>
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#786B61">How we plan it</span>
+          <h2 style="margin:16px 0 20px;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(28px,3.6vw,48px);line-height:1.16;color:#5D2B2A;max-width:18ch">Shaped around what you envision</h2>
+          <div style="width:64px;height:2px;background:#D1A859"></div>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;gap:24px;padding:26px 0;border-bottom:1px solid rgba(209,168,89,.4)">
+              <span style="font-family:'Playfair Display',serif;font-weight:500;font-size:26px;color:#D1A859;flex:0 0 auto">{{ s.n }}</span>
+              <div>
+                <h3 style="margin:0 0 8px;font-family:'Playfair Display',serif;font-weight:500;font-size:23px;color:#5D2B2A">{{ s.title }}</h3>
+                <p style="margin:0;font-size:16px;line-height:1.8;color:#786B61;max-width:44ch">{{ s.note }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-screen-label="Capacity" style="background:#3F2423;padding:clamp(56px,8vw,110px) clamp(20px,5vw,72px)">
+      <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:{{ halfCols }};gap:clamp(24px,4vw,48px)">
+        <div style="border:1px solid rgba(209,168,89,.4);padding:clamp(28px,4vw,44px)">
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D1A859">Up to 150 guests</span>
+          <h3 style="margin:14px 0 12px;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,2.8vw,34px);color:#F5EFE5">Private celebrations</h3>
+          <p style="margin:0 0 22px;font-size:16px;line-height:1.8;color:rgba(245,239,229,.8);max-width:36ch">Haldi, mehndi, get togethers, poolside evenings and spiritual events.</p>
+          <a href="Properties.dc.html" style="font-size:14px;font-weight:600;color:#D1A859;border-bottom:1px solid rgba(209,168,89,.6);padding-bottom:4px;transition:background-color .25s ease,color .25s ease,border-color .25s ease" style-hover="color:#D1A859">Property one →</a>
+        </div>
+        <div style="border:1px solid rgba(209,168,89,.4);padding:clamp(28px,4vw,44px)">
+          <span style="font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#D1A859">Up to 500 guests</span>
+          <h3 style="margin:14px 0 12px;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,2.8vw,34px);color:#F5EFE5">Large scale events</h3>
+          <p style="margin:0 0 22px;font-size:16px;line-height:1.8;color:rgba(245,239,229,.8);max-width:36ch">Weddings and celebrations that need open lawn, staging and dining space.</p>
+          <a href="Properties.dc.html" style="font-size:14px;font-weight:600;color:#D1A859;border-bottom:1px solid rgba(209,168,89,.6);padding-bottom:4px;transition:background-color .25s ease,color .25s ease,border-color .25s ease" style-hover="color:#D1A859">Property two →</a>
+        </div>
+      </div>
+      <div style="max-width:1240px;margin:clamp(34px,4vw,52px) auto 0;display:flex;flex-wrap:wrap;gap:14px">
+        <a href="{{ waHref }}" style="background:#128C4A;color:#FFFFFF;font-size:14px;font-weight:600;letter-spacing:.06em;padding:18px 30px;transition:background-color .25s ease,color .25s ease,border-color .25s ease" style-hover="background:#0E7A3F"><svg viewBox="0 0 24 24" style="width:18px;height:18px;vertical-align:-4px;margin-right:9px;flex:0 0 auto" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.9-.94 1.08-.17.18-.35.2-.65.07-.3-.15-1.13-.42-2.15-1.33-.79-.71-1.32-1.58-1.48-1.88-.15-.3-.02-.47.13-.62.15-.15.35-.42.52-.63.17-.2.22-.35.33-.58.1-.22.05-.42-.03-.6-.07-.17-.67-1.63-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.03 1-1.03 2.43 0 1.43 1.05 2.81 1.2 3 .15.2 2.06 3.28 5.02 4.47 2.96 1.18 2.96.79 3.5.74.53-.05 1.73-.7 1.98-1.38.25-.68.25-1.26.17-1.38-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01c-1.72 0-3.4-.46-4.88-1.34l-.35-.2-3.63.95.97-3.54-.23-.37a9.4 9.4 0 01-1.44-5.02c0-5.2 4.24-9.44 9.46-9.44 2.53 0 4.9.99 6.68 2.77a9.36 9.36 0 012.77 6.68c0 5.2-4.25 9.43-9.46 9.43zm8.04-17.48A11.36 11.36 0 0012.04.5C5.78.5.7 5.58.7 11.83c0 2 .52 3.95 1.52 5.67L.5 23.5l6.15-1.61a11.34 11.34 0 005.39 1.37h.01c6.25 0 11.34-5.08 11.34-11.33 0-3.03-1.18-5.88-3.31-8.01z"/></svg>{{ phone }}</a>
+        <a href="Contact.dc.html" style="border:1px solid rgba(209,168,89,.6);color:#D1A859;font-size:14px;font-weight:600;letter-spacing:.06em;padding:18px 30px;transition:background-color .25s ease,color .25s ease,border-color .25s ease" style-hover="background:rgba(209,168,89,.16);border-color:#D1A859">Visit the property</a>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="SiteFooter" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: typeof window !== 'undefined' && window.innerWidth < 980 };
+
+  eventsList = [
+    { title: 'Haldi', note: 'Morning light, marigold, open lawn.', slot: 'Haldi ceremony', url: 'https://images.unsplash.com/photo-1509610973147-232dfea52a97?auto=format&fit=crop&w=1600&q=70' },
+    { title: 'Mehndi', note: 'Shaded seating and low canopy décor.', slot: 'Mehndi setup', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=70' },
+    { title: 'Get Together', note: 'Small gatherings for family and friends.', slot: 'Family gathering', url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=70' },
+    { title: 'Swimming Pool Party', note: 'Pool deck laid out for evening service.', slot: 'Pool party', url: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1600&q=70' },
+    { title: 'Spiritual Events', note: 'Quiet, screened space for satsang and puja.', slot: 'Spiritual event', url: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=70' },
+    { title: 'Private Events', note: 'Whole property held for one occasion.', slot: 'Private event', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=70' },
+  ];
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ isMobile: window.innerWidth < 980 });
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  renderVals() {
+    const m = this.state.isMobile;
+    const phone = '8700616225';
+    return {
+      phone,
+      waHref: 'https://wa.me/91' + phone,
+      topPad: m ? '64px' : '80px',
+      botPad: m ? '56px' : '0px',
+      halfCols: m ? '1fr' : '1fr 1fr',
+      splitCols: m ? '1fr' : '0.85fr 1.15fr',
+      eventCols: m ? '1fr' : 'repeat(3, 1fr)',
+      events: this.eventsList.map((e) => ({
+        ...e,
+        wa: 'https://wa.me/91' + phone + '?text=' + encodeURIComponent('Enquiry for ' + e.title + ' at Riyasat e Resort'),
+      })),
+      steps: [
+        { n: '01', title: 'Tell us the occasion', note: 'Date, guest count and the kind of celebration you have in mind.' },
+        { n: '02', title: 'Walk the property', note: 'See both properties, the garden and the pool before you decide.' },
+        { n: '03', title: 'We shape the space', note: 'Layout, seating and décor arranged around your plan for the day.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
