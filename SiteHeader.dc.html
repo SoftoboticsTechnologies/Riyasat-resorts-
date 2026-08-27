@@ -24,9 +24,9 @@
 
 <header style="position:fixed;left:0;right:0;top:0;z-index:70;background:#3F2423;border-bottom:1px solid rgba(209,168,89,.32)">
   <div style="max-width:1340px;margin:0 auto;padding:0 clamp(16px,3vw,40px);height:{{ barH }};display:flex;align-items:center;justify-content:space-between;gap:20px">
-    <a href="index.html" style="display:flex;align-items:center;gap:12px;flex:0 0 auto">
-      <img src="logo-circular.png" alt="Riyasat e Resort" style="width:42px;height:42px;border-radius:50%;display:block" />
-      <span style="font-family:'Playfair Display',serif;font-weight:500;font-size:17px;letter-spacing:.1em;color:#F5EFE5;white-space:nowrap;display:{{ wordmarkDisplay }}">Riyasat e Resort</span>
+    <a href="index.html" style="display:flex;align-items:center;gap:{{ brandGap }};flex:0 0 auto;min-width:0">
+      <img src="logo-circular.png" alt="Riyasat e Resort" style="width:{{ logoSize }};height:{{ logoSize }};border-radius:50%;display:block;flex:0 0 auto" />
+      <span style="font-family:'Playfair Display',serif;font-weight:500;font-size:{{ wordmarkSize }};letter-spacing:.06em;color:#F5EFE5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:{{ wordmarkDisplay }}">Riyasat e Resort</span>
     </a>
     <nav style="display:{{ navRowDisplay }};align-items:center;gap:clamp(16px,2.2vw,30px)">
       <sc-for list="{{ links }}" as="l" hint-placeholder-count="7">
@@ -110,7 +110,10 @@ class Component extends DCLogic {
       barH: m ? '64px' : '80px',
       navRowDisplay: m ? 'none' : 'flex',
       burgerDisplay: m ? 'flex' : 'none',
-      wordmarkDisplay: (!m && this.state.isNarrow) || (m && this.state.isTiny) ? 'none' : 'block',
+      wordmarkDisplay: !m && this.state.isNarrow ? 'none' : 'block',
+      logoSize: this.state.isTiny ? '34px' : '42px',
+      brandGap: this.state.isTiny ? '9px' : '12px',
+      wordmarkSize: this.state.isTiny ? '13.5px' : (m ? '15.5px' : '17px'),
       waTabDisplay: m ? 'none' : 'flex',
       waBarDisplay: m ? 'flex' : 'none',
       links: this.navLinks.map(l => ({
